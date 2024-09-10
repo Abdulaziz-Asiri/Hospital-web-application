@@ -1,5 +1,6 @@
 {% extends 'dashBase.html' %}
 
+
 {% block title %} Appointment Details {% endblock %}
 
 {% block content %}
@@ -40,16 +41,13 @@
                                 <div id="{{appointment.id}}-dropdown" class="hidden z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow light:bg-gray-700 light:divide-gray-600">
                                     <ul class="py-1 text-sm text-gray-700 light:text-gray-200" aria-labelledby="{{appointment.id}}-dropdown-button">
                                         <li>
-                                            {% if appointment.appointment.exists %}
-                                                <a href="{% url 'patientSummary:display_patient_summary' appointment.appointment.first.id %}" class="block py-2 px-4 hover:bg-gray-100 light:hover:bg-gray-600 light:hover:text-white">Show Summary</a>
-                                            {% else %}
-                                                <span class="block py-2 px-4 text-gray-400">No Summary Available</span>
-                                            {% endif %}
-                                                            </li>
+                                                {% if appointment.appointment.exists %}
+                                                    <a href="{% url 'patientSummary:display_patient_summary' appointment.appointment.first.id %}" class="block py-2 px-4 hover:bg-gray-100 light:hover:bg-gray-600 light:hover:text-white">Show Summary</a>
+                                                {% else %}
+                                                    <span class="block py-2 px-4 text-gray-400">No Summary Available</span>
+                                                {% endif %}
+                                        </li>
                                     </ul>
-                                    <div class="py-1">
-                                        <a href="#" class="block py-2 px-4 text-sm text-white bg-red-300 hover:bg-red-500 hover:text-white">Delete</a>
-                                    </div>
                                 </div>
                             </td>
                         </tr>

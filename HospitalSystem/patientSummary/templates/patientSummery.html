@@ -1,8 +1,7 @@
 {% extends 'base.html' %}
-
 {% block title %} Patient Record  {% endblock %}
-
 {% block content %}
+
 <section class="bg-gray-50 light:bg-gray-900 p-3 sm:p-5">
     <div class="w-full flex-col justify-center items-center gap-4 flex">
                     <h2 class="text-center text-gray-900 text-4xl font-bold font-manrope leading-normal">Patient Report</h2>
@@ -58,24 +57,23 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {%for patientSummary in patientSummaries%}
                         <tr class="border-b light:border-gray-700">
-                            <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap light:text-white">{{patientSummary.appointment.user.first_name}} {{patientSummary.appointment.user.last_name}}</th>
-                            <td class="px-4 py-3">{{patientSummary.appointment.clinic}}</td>
-                            <td class="px-4 py-3">{{patientSummary.appointment.doctor}}</td>
-                            <td class="px-4 py-3">{{patientSummary.diagnosis}}</td>
-                            <td class="px-4 py-3">{{patientSummary.prescription_name}}</td>
-                            <td class="px-4 py-3">{{patientSummary.created_at}} </td>
+                            <th scope="row" class="text-black px-4 py-3 font-medium  whitespace-nowrap light:text-white">{{summary.appointment.user.first_name}} {{summary.appointment.user.last_name}}</th>
+                            <td class="px-4 py-3">{{summary.appointment.clinic}}</td>
+                            <td class="px-4 py-3">{{summary.appointment.doctor}}</td>
+                            <td class="px-4 py-3">{{summary.diagnosis}}</td>
+                            <td class="px-4 py-3">{{summary.prescription_name}}</td>
+                            <td class="px-4 py-3">{{summary.created_at}} </td>
                             <td class="px-4 py-3 flex items-center justify-end">
-                                <button id="{{patientSummary.id}}-dropdown-button" data-dropdown-toggle="{{patientSummary.id}}-dropdown" class="inline-flex items-center p-0.5 text-sm font-medium text-center text-gray-500 hover:text-gray-800 rounded-lg focus:outline-none light:text-gray-400 light:hover:text-gray-100" type="button">
+                                <button id="{{summary.id}}-dropdown-button" data-dropdown-toggle="{{summary.id}}-dropdown" class="inline-flex items-center p-0.5 text-sm font-medium text-center text-gray-500 hover:text-gray-800 rounded-lg focus:outline-none light:text-gray-400 light:hover:text-gray-100" type="button">
                                     <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z" />
                                     </svg>
                                 </button>
-                                <div id="{{patientSummary.id}}-dropdown" class="hidden z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow light:bg-gray-700 light:divide-gray-600">
-                                    <ul class="py-1 text-sm text-gray-700 light:text-gray-200" aria-labelledby="{{patientSummary.id}}-dropdown-button">
+                                <div id="{{summary.id}}-dropdown" class="hidden z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow light:bg-gray-700 light:divide-gray-600">
+                                    <ul class="py-1 text-sm text-gray-700 light:text-gray-200" aria-labelledby="{{summary.id}}-dropdown-button">
                                         <li>
-                                                <button id="readProductButton" data-modal-target="{{patientSummary.id}}-readProductModal" data-modal-toggle="{{patientSummary.id}}-readProductModal" class="block py-2 px-4 hover:bg-gray-100 light:hover:bg-gray-600 light:hover:text-white" type="button">
+                                                <button id="readProductButton" data-modal-target="{{summary.id}}-readProductModal" data-modal-toggle="{{summary.id}}-readProductModal" class="block py-2 px-4 hover:bg-gray-100 light:hover:bg-gray-600 light:hover:text-white" type="button">
                                                 Details
                                                 </button>
                                         </li>
@@ -88,7 +86,7 @@
                         </tr>
 
                         <!-- Main modal -->
-                        <div id="{{patientSummary.id}}-readProductModal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-modal md:h-full">
+                        <div id="{{summary.id}}-readProductModal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-modal md:h-full">
                             <div class="relative p-4 w-full max-w-xl h-full md:h-auto">
                                 <!-- Modal content -->
                                 <div class="relative p-4 bg-white rounded-lg shadow light:bg-gray-800 sm:p-5">
@@ -98,16 +96,16 @@
                                                 <h3 class="font-semibold ">
                                                     Patient Name
                                                 </h3>
-                                                <p>- {{patientSummary.appointment.user.first_name}} {{patientSummary.appointment.user.last_name}}</p>
+                                                <p>- {{summary.appointment.user.first_name}} {{summary.appointment.user.last_name}}</p>
                                                 <h3 class="font-semibold ">
                                                     Doctor Name
                                                 </h3>
                                                 <p >
-                                                    - {{patientSummary.appointment.doctor}}
+                                                    - {{summary.appointment.doctor}}
                                                 </p>
                                             </div>
                                             <div>
-                                                <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 inline-flex light:hover:bg-gray-600 light:hover:text-white" data-modal-toggle="{{patientSummary.id}}-readProductModal">
+                                                <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 inline-flex light:hover:bg-gray-600 light:hover:text-white" data-modal-toggle="{{summary.id}}-readProductModal">
                                                     <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
                                                     <span class="sr-only">Close modal</span>
                                                 </button>
@@ -115,11 +113,11 @@
                                         </div>
                                         <dl>
                                             <dt class="mb-2 font-semibold leading-none text-gray-900 light:text-white">Diagnosis</dt>
-                                            <dd class="mb-4 font-light text-gray-500 sm:mb-5 light:text-gray-400">{{patientSummary.diagnosis}}</dd>
+                                            <dd class="mb-4 font-light text-gray-500 sm:mb-5 light:text-gray-400">{{summary.diagnosis}}</dd>
                                             <dt class="mb-2 font-semibold leading-none text-gray-900 light:text-white">Prescription</dt>
-                                            <dd class="mb-4 font-light text-gray-500 sm:mb-5 light:text-gray-400">{{patientSummary.prescription_name}}</dd>
+                                            <dd class="mb-4 font-light text-gray-500 sm:mb-5 light:text-gray-400">{{summary.prescription_name}}</dd>
                                             <dt class="mb-2 font-semibold leading-none text-gray-900 light:text-white">Date Created</dt>
-                                            <dd class="mb-4 font-light text-gray-500 sm:mb-5 light:text-gray-400">{{patientSummary.created_at}}</dd>
+                                            <dd class="mb-4 font-light text-gray-500 sm:mb-5 light:text-gray-400">{{summary.created_at}}</dd>
                                         </dl>
                                         <div class="flex justify-between items-center">
                                             <div class="flex items-center space-x-3 sm:space-x-4">
@@ -132,7 +130,6 @@
                                 </div>
                             </div>
                         </div>
-                        {%endfor%}
                     </tbody>
                 </table>
             </div>
@@ -180,3 +177,4 @@
         </div>
     </div>
     </section>
+{% endblock %}

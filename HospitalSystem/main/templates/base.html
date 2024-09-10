@@ -5,6 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.css" rel="stylesheet" />
 
     <title>{% block title %} {% endblock %}</title>
@@ -202,7 +203,36 @@
     </ul>
     </div>
 </footer>
+<script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.js"></script>
 
-        <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.js"></script>
+<script>
+function exportToPDF(patientId) {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+
+    const modalContent = document.getElementById(`${patientId}-readProductModal`);
+
+    // Get patient details
+    const patientName = modalContent.querySelector('h3 + p').textContent.trim();
+    const doctorName = modalContent.querySelectorAll('h3 + p')[1].textContent.trim();
+    const diagnosis = modalContent.querySelector('dd').textContent.trim();
+    const prescription = modalContent.querySelectorAll('dd')[1].textContent.trim();
+    const dateCreated = modalContent.querySelectorAll('dd')[2].textContent.trim();
+
+    // Add content to PDF
+    doc.setFontSize(18);
+    doc.text('Patient Summary', 105, 20, null, null, 'center');
+    
+    doc.setFontSize(12);
+    doc.text(`Patient Name: ${patientName}`, 20, 40);
+    doc.text(`Doctor Name: ${doctorName}`, 20, 50);
+    doc.text(`Diagnosis: ${diagnosis}`, 20, 60);
+    doc.text(`Prescription: ${prescription}`, 20, 70);
+    doc.text(`Date Created: ${dateCreated}`, 20, 80);
+
+    // Save the PDF
+    doc.save(`patient_summary_${patientId}.pdf`);
+}
+</script>
 </body>
 </html>

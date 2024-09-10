@@ -5,7 +5,7 @@
 {% block content %}
 {% if request.user.is_authenticated %}
 <section class="py-24 relative">
-    <form
+<form
 action="{% url 'account:create_profile_view' user.username %}"
 method="post"
 enctype="multipart/form-data"
@@ -97,7 +97,7 @@ enctype="multipart/form-data"
                 </button>
             </div>
         </div>
-    </form>
+</form>
     </section>
                                             
 {%endif%}   

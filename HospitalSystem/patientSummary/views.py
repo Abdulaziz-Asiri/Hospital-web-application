@@ -7,12 +7,11 @@ from appointment.models import Appointment
 from patientSummary.models import PatientSummary
 
 
-
-
 @login_required(login_url="account:log_in")
-def display_patient_summary(request:HttpRequest,patient_id):
-    patientSummary = PatientSummary.objects.get(id=patient_id)
-    return redirect(request, "patientSummery.html",{"patientSummary":patientSummary})
+def display_patient_summary(request:HttpRequest, summary_id):
+    summary = get_object_or_404(PatientSummary,id=summary_id)
+
+    return render(request, "patientSummery.html", {"summary":summary})
 
 @login_required(login_url="account:log_in")
 def add_patient_summary(request: HttpRequest, appointment_id):

@@ -32,8 +32,13 @@ def my_appointment_view(request: HttpRequest, user_username):
     user = get_object_or_404(User, username=user_username)
     profile = get_object_or_404(Profile, user=user)
     appointments = Appointment.objects.filter(user=profile).prefetch_related('appointment')
+    patient_summaries = {}
+    for appointment in appointments:
+        summary = PatientSummary.objects.filter(appointment=appointment).first()
+        patient_summaries[appointment.id] = summary
     context = {
         "appointments": appointments,
+        "patient_summaries":patient_summaries,
     }
     return render(request, "myAppointment.html", context)
 
