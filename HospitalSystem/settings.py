@@ -11,12 +11,14 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+import dj_database_url
 import os
 from dotenv import load_dotenv # to import env file
 load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+DATABASE_URL = "postgresql://postgres:vlYwWQwMkmfMVlwIWsChPjtjqyrxaoyA@junction.proxy.rlwy.net:24177/railway"
 
 
 # Quick-start development settings - unsuitable for production
@@ -85,17 +87,19 @@ WSGI_APPLICATION = 'HospitalSystem.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'hospital_db',# write the name of the DB you created
-        'USER': 'postgres', 
-        'PASSWORD': '',
-        'HOST': 'localhost'
-
-    }
+        "default":dj_database_url.config(default=DATABASE_URL,conn_max_age=1800),
 }
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'hospital_db',# write the name of the DB you created
+#         'USER': 'postgres', 
+#         'PASSWORD': '',
+#         'HOST': 'localhost'
+
+#     }
+# }
 #     'default': {
 #         'ENGINE': 'django.db.backends.sqlite3',
 #         'NAME': BASE_DIR / 'db.sqlite3',
