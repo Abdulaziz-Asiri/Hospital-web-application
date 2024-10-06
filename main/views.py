@@ -66,3 +66,8 @@ def make_appointment(request: HttpRequest, clinic_id, profile_id):
 def dashboard_view(request:HttpRequest):
 
     return render(request, "dashboard.html")
+
+@login_required(login_url="account:log_in")
+def doctor_dashboard_view(request:HttpRequest):
+
+    return render(request, "doctorDash.html")

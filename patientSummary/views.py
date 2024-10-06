@@ -46,6 +46,16 @@ def all_patient_summary(request:HttpRequest):
     return render(request,"allPatientRecords.html",{"patientSummaries":patientSummary})
 
 @login_required(login_url="account:log_in")
+def all_doctor_patient_summary(request:HttpRequest):
+    if not request.user.is_staff:
+        messages.error(request,"Only registered users can access")
+        return redirect("account:log_in")
+    else:
+        patientSummary = PatientSummary.objects.all()
+
+    return render(request,"allDoctorPatient.html",{"patientSummaries":patientSummary})
+
+@login_required(login_url="account:log_in")
 def delete_patient_summary(request:HttpRequest, record_id):
     if not request.user.is_staff:
         messages.error(request,"Only registered users can delete")
