@@ -87,19 +87,19 @@ WSGI_APPLICATION = 'HospitalSystem.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-DATABASES = {
-        "default":dj_database_url.config(default=DATABASE_URL,conn_max_age=1800),
-}
 # DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'hospital_db',# write the name of the DB you created
-#         'USER': 'postgres', 
-#         'PASSWORD': '',
-#         'HOST': 'localhost'
-
-#     }
+#         "default":dj_database_url.config(default=DATABASE_URL,conn_max_age=1800),
 # }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'hospital_db',# write the name of the DB you created
+        'USER': 'postgres', 
+        'PASSWORD': '',
+        'HOST': 'localhost'
+
+    }
+}
 #     'default': {
 #         'ENGINE': 'django.db.backends.sqlite3',
 #         'NAME': BASE_DIR / 'db.sqlite3',

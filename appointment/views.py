@@ -26,6 +26,18 @@ def all_appointment_view(request: HttpRequest):
         appointment = Appointment.objects.all()
 
     return render(request, "allAppointment.html", {"appointments":appointment})
+
+@login_required(login_url="account:log_in")
+def all_doctor_appointment_view(request: HttpRequest):
+    if not request.user.is_staff:
+        messages.error(request,"Only registered users can access")
+        return redirect("account:log_in")
+    else:
+        appointment = Appointment.objects.all()
+
+    return render(request, "doctorAppointment.html", {"appointments":appointment})
+
+
 @login_required(login_url="account:log_in")
 
 def my_appointment_view(request: HttpRequest, user_username):
