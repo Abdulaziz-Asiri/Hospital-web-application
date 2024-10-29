@@ -21,24 +21,27 @@ def home_view(request:HttpRequest):
 def details_clinics(request: HttpRequest, clinic_id):
     clinic = Clinic.objects.get(id=clinic_id)
 
-    return render(request, "clinic_details.html", {"clinic":clinic})
+    return render(request, "clinic_details.html", {"clinic":clinic , })
 
-def make_appointment(request: HttpRequest, clinic_id, profile_id):  
+def make_appointment(request: HttpRequest, clinic_id):
+    profile = request.user.id  
+    doctor = Clinic.objects.prefetch_related('doctors_id').all()
+
     clinic = Clinic.objects.get(id=clinic_id)
-    doctor = Doctor.objects.all()
-    user = User.objects.get(id=profile_id)
+    user = User.objects.get(id=profile)
     profile = Profile.objects.get(user=user)
     context ={
-         "clinic": clinic,
+        "clinic": clinic,
         "profile": profile,
-        "doctor": doctor,
     }
+
     if not request.user.is_authenticated:
         messages.error(request,"Only registered users can access")
         return redirect("account:log_in")
+    
     if request.method == "POST":
         try:
-            doctor = Doctor.objects.get(id=request.POST['doctor'])
+            doctor = Doctor.objects.get(id= doctor)
             date = datetime.strptime(request.POST['date'], '%Y-%m-%d').date()
             time_slot = datetime.strptime(request.POST['time_slot'], '%H:%M').time()
 
@@ -50,6 +53,7 @@ def make_appointment(request: HttpRequest, clinic_id, profile_id):
                 time_slot=time_slot,
             )
             new_appointment.save()
+
             content_html = render_to_string("appointment/templates/mail/confirmation.html",{"appointment":new_appointment}) 
             send_to = new_appointment.user.user.email 
             email_message = EmailMessage("Appointment Confirmation", content_html, settings.EMAIL_HOST_USER, [send_to])

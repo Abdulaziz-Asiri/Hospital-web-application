@@ -4,7 +4,7 @@
 
 {% block content %}
 <section class="py-24 relative">
-    <form action="{% url 'main:make_appointment' clinic_id=clinic.id profile_id=profile.id %}" method="post" enctype="multipart/form-data"> 
+    <form action="{% url 'main:make_appointment' clinic_id=clinic.id  %}" method="post" enctype="multipart/form-data"> 
 {% csrf_token %} 
         <div class="w-full max-w-7xl px-4 md:px-5 lg:px-5 mx-auto">
             <div class="w-full flex-col justify-start items-start lg:gap-14 md:gap-10 gap-8 inline-flex">
@@ -41,7 +41,10 @@
                                         <path d="M3.11222 6.04545L3.20668 3.94744L1.43679 5.08594L0.894886 4.14134L2.77415 3.18182L0.894886 2.2223L1.43679 1.2777L3.20668 2.41619L3.11222 0.318182H4.19105L4.09659 2.41619L5.86648 1.2777L6.40838 2.2223L4.52912 3.18182L6.40838 4.14134L5.86648 5.08594L4.09659 3.94744L4.19105 6.04545H3.11222Z" fill="#EF4444"/>
                                     </svg>
                                 </label>
-                                <p>{{doctor.name}}</p>
+                                <p>{% for doctor in clinic.doctors_id.all %}
+                                    <span>{{ doctor.name }} </span>
+                                    {% endfor %}
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -54,14 +57,20 @@
                                              <path fill-rule="evenodd" d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm11-4a1 1 0 1 0-2 0v4a1 1 0 0 0 .293.707l3 3a1 1 0 0 0 1.414-1.414L13 11.586V8Z" clip-rule="evenodd"/>
                                           </svg>
                                     </div>
-                                    <input name="time_slot" type="time" id="time" class="bg-gray-50 border leading-none border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-white light:focus:ring-blue-500 light:focus:border-blue-500" min="09:00" max="18:00" value="00:00" required />
+                                    <input name="time_slot" type="time" id="time" class="bg-gray-50 border leading-none border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-white light:focus:ring-blue-500 light:focus:border-blue-500" min="09:00" max="18:00" value="09:00" required />
                                  </div>
                             </div>
                             <div class="w-full flex-col justify-start items-start gap-1.5 flex">
                                 <label for="dates" class="flex gap-1 items-center text-gray-600 text-base font-medium leading-relaxed">Appointment Date
 
                                 </label>
-                                <input name="date" id="datepicker-autohide"  type="date" class="w-full focus:outline-none text-gray-900 placeholder-gray-400 text-lg font-normal leading-relaxed px-5 py-3 rounded-lg shadow-[0px_1px_2px_0px_rgba(16,_24,_40,_0.05)] border border-gray-200 justify-start items-center gap-2 inline-flex" placeholder="Select Date" required>
+                                <input name="date" id="datepicker-autohide"  type="date" class="w-full focus:outline-none text-gray-900 placeholder-gray-400 text-lg font-normal leading-relaxed px-5 py-3 rounded-lg shadow-[0px_1px_2px_0px_rgba(16,_24,_40,_0.05)] border border-gray-200 justify-start items-center gap-2 inline-flex" placeholder="Select Date"   required>
+                                <script>
+                                // Set the min attribute to today's date
+                                const dateInput = document.getElementById("datepicker-autohide");
+                                const today = new Date().toISOString().split("T")[0];
+                                dateInput.setAttribute("min", today);
+                                </script>
                         </div>
                     </div>
                 </div>
@@ -75,46 +84,10 @@
    
 </div>
 </section>
-{% if messages %} 
-{% for message in messages %}
-<div id="toast-bottom-right" class="fixed flex items-center w-full max-w-xs p-4 mb-4 text-gray-500 bg-white rounded-lg  shadow top-14 right-5 light:text-gray-400 light:bg-gray-800 "  role="alert">
-            <div class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-blue-500 bg-blue-100 rounded-lg light:bg-blue-800 light:text-blue-200">
-                <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM10 15a1 1 0 1 1 0-2 1 1 0 0 1 0 2Zm1-4a1 1 0 0 1-2 0V6a1 1 0 0 1 2 0v5Z"/>
-                </svg>
-                <span class="sr-only">Info icon</span>
-            </div>
-  <div class="ms-3 text-sm font-normal">{{message}}</div>
-  <button
-    type="button"
-    class="ms-auto -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex items-center justify-center h-8 w-8 light:text-gray-500 light:hover:text-white light:bg-gray-800 light:hover:bg-gray-700"
-    data-dismiss-target="#toast-bottom-right"
-    aria-label="Close"
-  >
-    <span class="sr-only">Close</span>
-    <svg
-      class="w-3 h-3"
-      aria-hidden="true"
-      xmlns="http://www.w3.org/2000/svg"
-      fill="none"
-      viewBox="0 0 14 14"
-    >
-      <path
-        stroke="currentColor"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        stroke-width="2"
-        d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
-      />
-    </svg>
-  </button>
-  </div>
-  {% endfor %}                         
-  {% endif %}
 
 {% endblock %}
 
-<form action="{% url 'main:make_appointment' clinic_id=clinic.id  profile_id=profiles.id%}" method="post" enctype="multipart/form-data"> 
+<!-- <form action="{% url 'main:make_appointment' clinic_id=clinic.id  profile_id=profiles.id%}" method="post" enctype="multipart/form-data"> 
 {% csrf_token %} 
         <div class="w-full max-w-7xl px-4 md:px-5 lg:px-5 mx-auto">
                     <h2 class="text-center text-gray-900 text-4xl font-bold font-manrope leading-normal">Add New Appointment</h2>
@@ -139,4 +112,4 @@
                                         <button class="mx-auto sm:w-fit w-full px-9 py-3 bg-indigo-600 hover:bg-indigo-700 ease-in-out transition-all duration-700 rounded-xl shadow justify-center items-center flex">
                     <span class="px-3.5 text-center text-white text-lg font-semibold leading-8">Submit</span>
                 </button>
-    </form>
+    </form> -->
