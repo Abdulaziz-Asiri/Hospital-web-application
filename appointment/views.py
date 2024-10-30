@@ -13,6 +13,8 @@ from account.models import Profile
 from patientSummary.models import PatientSummary
 from django.contrib.auth.models import User
 from datetime import datetime
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
 
 
 
@@ -33,24 +35,45 @@ def all_doctor_appointment_view(request: HttpRequest):
         messages.error(request,"Only registered users can access")
         return redirect("account:log_in")
     else:
-        appointment = Appointment.objects.all()
+        doctorProfile = get_object_or_404(Doctor, user=request.user)
+        appointment = Appointment.objects.filter(clinic__doctors_id=doctorProfile)
 
-    return render(request, "doctorAppointment.html", {"appointments":appointment})
+    paginator = Paginator(appointment, 6)  # Show n items per page
+    page_number = request.GET.get('page')
+
+    try:
+        page_obj = paginator.get_page(page_number)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver the first page.
+        page_obj = paginator.get_page(1)
+    except EmptyPage:
+        # If page is out of range, deliver last page of results.
+        page_obj = paginator.get_page(paginator.num_pages)
+
+
+    return render(request, "doctorAppointment.html", {"appointments":page_obj})
 
 
 @login_required(login_url="account:log_in")
-
 def my_appointment_view(request: HttpRequest, user_username):
     user = get_object_or_404(User, username=user_username)
     profile = get_object_or_404(Profile, user=user)
-    appointments = Appointment.objects.filter(user=profile).prefetch_related('appointment')
-    patient_summaries = {}
-    for appointment in appointments:
-        summary = PatientSummary.objects.filter(appointment=appointment).first()
-        patient_summaries[appointment.id] = summary
+    appointments = Appointment.objects.filter(user=profile).prefetch_related('summaries')
+
+    paginator = Paginator(appointments, 6)  # Show n items per page
+    page_number = request.GET.get('page')
+
+    try:
+        page_obj = paginator.get_page(page_number)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver the first page.
+        page_obj = paginator.get_page(1)
+    except EmptyPage:
+        # If page is out of range, deliver last page of results.
+        page_obj = paginator.get_page(paginator.num_pages)
+
     context = {
-        "appointments": appointments,
-        "patient_summaries":patient_summaries,
+        "appointments": page_obj,
     }
     return render(request, "myAppointment.html", context)
 
@@ -65,14 +88,12 @@ def add_appointment_view(request: HttpRequest):
     if request.method == "POST":
         try:
             user = Profile.objects.get(id=request.POST['user'])
-            doctor = Doctor.objects.get(id=request.POST['doctor'])
             clinic = Clinic.objects.get(id=request.POST['clinic'])
             date = datetime.strptime(request.POST['date'], '%Y-%m-%d' ).date()
             time_slot = datetime.strptime(request.POST['time_slot'], '%H:%M').time()
 
             new_appointment = Appointment(
                 user=user,
-                doctor=doctor,
                 clinic=clinic,
                 date=date,
                 time_slot=time_slot,
@@ -86,6 +107,7 @@ def add_appointment_view(request: HttpRequest):
             
             messages.success(request, "Appointment has been Added Successfully")
             return redirect("appointment:all_appointment_view") 
+        
         except Exception as e:
             messages.error(request, f"An unexpected error occurred: {str(e)}")
     
