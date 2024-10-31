@@ -48,7 +48,19 @@ def all_patient_summary(request:HttpRequest):
     else:
         patientSummary = PatientSummary.objects.all()
 
-    return render(request,"allPatientRecords.html",{"patientSummaries":patientSummary})
+        paginator = Paginator(patientSummary, 6)  # Show n items per page
+        page_number = request.GET.get('page')
+
+        try:
+            page_obj = paginator.get_page(page_number)
+        except PageNotAnInteger:
+            # If page is not an integer, deliver the first page.
+            page_obj = paginator.get_page(1)
+        except EmptyPage:
+            # If page is out of range, deliver last page of results.
+            page_obj = paginator.get_page(paginator.num_pages)
+
+    return render(request,"allPatientRecords.html",{"patientSummaries":page_obj})
 
 @login_required(login_url="account:log_in")
 def all_doctor_patient_summary(request:HttpRequest):

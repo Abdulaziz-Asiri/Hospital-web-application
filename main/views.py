@@ -81,22 +81,27 @@ def dashboard_view(request:HttpRequest):
     profiles = Profile.objects.all()
     users = Profile.objects.filter(user__is_staff=False, user__is_superuser=False)
     doctors = Doctor.objects.all()
+    patientSummary = PatientSummary.objects.all()
 
     paginator = Paginator(appointments, 6)  # Show n items per page
     paginator2 = Paginator(profiles, 6)  # Show n items per page
+    paginator3 = Paginator(patientSummary, 6)  # Show n items per page
     page_number = request.GET.get('page')
     
     try:
         page_obj = paginator.get_page(page_number)
         page_obj1 = paginator2.get_page(page_number)
+        page_obj3 = paginator3.get_page(page_number)
     except PageNotAnInteger:
         # If page is not an integer, deliver the first page.
         page_obj = paginator.get_page(1)
         page_obj1 = paginator2.get_page(1)
+        page_obj3 = paginator3.get_page(1)
     except EmptyPage:
         # If page is out of range, deliver last page of results.
         page_obj = paginator.get_page(paginator.num_pages)
         page_obj1 = paginator2.get_page(paginator.num_pages)
+        page_obj3 = paginator3.get_page(paginator.num_pages)
 
 
     context={
@@ -105,7 +110,8 @@ def dashboard_view(request:HttpRequest):
         "patitenReport":patitenReport,
         "users":users,
         "doctors":doctors,
-        "profile": page_obj1
+        "profile": page_obj1,
+        "patientSummary": page_obj3
     }
 
     return render(request, "dashboard.html", context)
