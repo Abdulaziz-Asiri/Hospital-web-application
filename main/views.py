@@ -80,3 +80,4 @@ def dashboard_view(request:HttpRequest):
 def doctor_dashboard_view(request:HttpRequest):
 
     return render(request, "doctorDash.html")
+

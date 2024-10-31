@@ -14,6 +14,7 @@ from patientSummary.models import PatientSummary
 from django.contrib.auth.models import User
 from datetime import datetime
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.db.models import Q
 
 
 
@@ -36,11 +37,17 @@ def all_doctor_appointment_view(request: HttpRequest):
         return redirect("account:log_in")
     else:
         doctorProfile = get_object_or_404(Doctor, user=request.user)
+        search_query = request.GET.get('search', '')
         appointment = Appointment.objects.filter(clinic__doctors_id=doctorProfile)
 
+    if search_query:
+        appointment = appointment.filter(
+            Q(user__first_name__icontains=search_query) | Q(user__last_name__icontains=search_query) |  
+            Q(date__icontains=search_query)  
+        )
     paginator = Paginator(appointment, 6)  # Show n items per page
     page_number = request.GET.get('page')
-
+    
     try:
         page_obj = paginator.get_page(page_number)
     except PageNotAnInteger:
@@ -51,7 +58,7 @@ def all_doctor_appointment_view(request: HttpRequest):
         page_obj = paginator.get_page(paginator.num_pages)
 
 
-    return render(request, "doctorAppointment.html", {"appointments":page_obj})
+    return render(request, "doctorAppointment.html", {"appointments":page_obj, "search_query": search_query})
 
 
 @login_required(login_url="account:log_in")

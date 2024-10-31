@@ -62,7 +62,12 @@ def log_in(request: HttpRequest):
             #login the user
             login(request, user)
             messages.success(request, "You are Logged in successfully", "alert-success")
-            return redirect(request.GET.get("next", "/"))
+            if request.user.is_staff and not request.user.is_superuser:
+                return redirect("main:doctor_dashboard_view")
+            elif request.user.is_superuser and not request.user.is_staff:
+                return redirect("main:dashboard_view")
+            else:
+                return redirect(request.GET.get("next", "/"))
         else:
             messages.error(request, "Please try again. You credentials are wrong", "alert-danger")
     return render(request, 'logIn.html')
