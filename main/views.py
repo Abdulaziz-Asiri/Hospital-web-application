@@ -9,8 +9,10 @@ from django.template.loader import render_to_string
 from django.core.mail import EmailMessage
 from django.contrib.auth.models import User
 from account.models import Profile
+from patientSummary.models import PatientSummary
 from appointment.models import Appointment
 from datetime import datetime
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 def home_view(request:HttpRequest):
         clinic = Clinic.objects.prefetch_related('doctors_id').all()
@@ -73,8 +75,40 @@ def make_appointment(request:HttpRequest, clinic_id):
 
 @login_required(login_url="account:log_in")
 def dashboard_view(request:HttpRequest):
+    appointments = Appointment.objects.all()
+    appointmentCount = Appointment.objects.all()
+    patitenReport = PatientSummary.objects.all()
+    profiles = Profile.objects.all()
+    users = Profile.objects.filter(user__is_staff=False, user__is_superuser=False)
+    doctors = Doctor.objects.all()
 
-    return render(request, "dashboard.html")
+    paginator = Paginator(appointments, 6)  # Show n items per page
+    paginator2 = Paginator(profiles, 6)  # Show n items per page
+    page_number = request.GET.get('page')
+    
+    try:
+        page_obj = paginator.get_page(page_number)
+        page_obj1 = paginator2.get_page(page_number)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver the first page.
+        page_obj = paginator.get_page(1)
+        page_obj1 = paginator2.get_page(1)
+    except EmptyPage:
+        # If page is out of range, deliver last page of results.
+        page_obj = paginator.get_page(paginator.num_pages)
+        page_obj1 = paginator2.get_page(paginator.num_pages)
+
+
+    context={
+        "appointments":page_obj,
+        "appointmentCount":appointmentCount,
+        "patitenReport":patitenReport,
+        "users":users,
+        "doctors":doctors,
+        "profile": page_obj1
+    }
+
+    return render(request, "dashboard.html", context)
 
 @login_required(login_url="account:log_in")
 def doctor_dashboard_view(request:HttpRequest):

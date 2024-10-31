@@ -46,6 +46,7 @@ def all_doctor_appointment_view(request: HttpRequest):
             Q(date__icontains=search_query)  
         )
     paginator = Paginator(appointment, 6)  # Show n items per page
+
     page_number = request.GET.get('page')
     
     try:

@@ -4,115 +4,242 @@
 
 {% block content %}
 <!-- Main Contact --> 
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
-        <div
-          class="border-2 border-dashed border-gray-300 rounded-lg light:border-gray-600 h-32 md:h-64"
-        >
-      </div>
-        <div
-          class="border-2 border-dashed rounded-lg border-gray-300 light:border-gray-600 h-32 md:h-64"
-        ></div>
-        <div
-          class="border-2 border-dashed rounded-lg border-gray-300 light:border-gray-600 h-32 md:h-64"
-        ></div>
-        <div
-          class="border-2 border-dashed rounded-lg border-gray-300 light:border-gray-600 h-32 md:h-64"
-        ></div>
-      </div>
-      <div
-        class="border-2 border-dashed rounded-lg border-gray-300 light:border-gray-600 h-96 mb-4"
-      >
-<div class="max-w-sm w-full bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6">
-  <div class="flex justify-between">
-    <div>
-      <h5 class="leading-none text-3xl font-bold text-gray-900 dark:text-white pb-2">32.4k</h5>
-      <p class="text-base font-normal text-gray-500 dark:text-gray-400">Users this week</p>
-    </div>
-    <div
-      class="flex items-center px-2.5 py-0.5 text-base font-semibold text-green-500 dark:text-green-500 text-center">
-      12%
-      <svg class="w-3 h-3 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 14">
-        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13V1m0 0L1 5m4-4 4 4"/>
-      </svg>
-    </div>
-  </div>
-  <div id="area-chart"></div>
-  <div class="grid grid-cols-1 items-center border-gray-200 border-t dark:border-gray-700 justify-between">
-    <div class="flex justify-between items-center pt-5">
-      <!-- Button -->
-      <button
-        id="dropdownDefaultButton"
-        data-dropdown-toggle="lastDaysdropdown"
-        data-dropdown-placement="bottom"
-        class="text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-900 text-center inline-flex items-center dark:hover:text-white"
-        type="button">
-        Last 7 days
-        <svg class="w-2.5 m-2.5 ms-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
-        </svg>
-      </button>
-      <!-- Dropdown menu -->
-      <div id="lastDaysdropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
-          <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
-            <li>
-              <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Yesterday</a>
-            </li>
-            <li>
-              <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Today</a>
-            </li>
-            <li>
-              <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Last 7 days</a>
-            </li>
-            <li>
-              <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Last 30 days</a>
-            </li>
-            <li>
-              <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Last 90 days</a>
-            </li>
-          </ul>
-      </div>
-      <a
-        href="#"
-        class="uppercase text-sm font-semibold inline-flex items-center rounded-lg text-blue-600 hover:text-blue-700 dark:hover:text-blue-500  hover:bg-gray-100 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700 px-3 py-2">
-        Users Report
-        <svg class="w-2.5 h-2.5 ms-1.5 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
-        </svg>
-      </a>
-    </div>
-  </div>
-</div>
-     </div>
-      <div class="grid grid-cols-2 gap-4 mb-4">
-        <div
-          class="border-2 border-dashed rounded-lg border-gray-300 light:border-gray-600 h-48 md:h-72"
-        ></div>
-        <div
-          class="border-2 border-dashed rounded-lg border-gray-300 light:border-gray-600 h-48 md:h-72"
-        ></div>
-        <div
-          class="border-2 border-dashed rounded-lg border-gray-300 light:border-gray-600 h-48 md:h-72"
-        ></div>
-        <div
-          class="border-2 border-dashed rounded-lg border-gray-300 light:border-gray-600 h-48 md:h-72"
-        ></div>
-      </div>
-      <div
-        class="border-2 border-dashed rounded-lg border-gray-300 light:border-gray-600 h-96 mb-4"
-      ></div>
-      <div class="grid grid-cols-2 gap-4">
-        <div
-          class="border-2 border-dashed rounded-lg border-gray-300 light:border-gray-600 h-48 md:h-72"
-        ></div>
-        <div
-          class="border-2 border-dashed rounded-lg border-gray-300 light:border-gray-600 h-48 md:h-72"
-        ></div>
-        <div
-          class="border-2 border-dashed rounded-lg border-gray-300 light:border-gray-600 h-48 md:h-72"
-        ></div>
-        <div
-          class="border-2 border-dashed rounded-lg border-gray-300 light:border-gray-600 h-48 md:h-72"
-        ></div>
-      </div>
+      <div class="p-4  rounded-lg " >
+       <div class=" md:grid md:grid-cols-4 gap-x-10 " >
+          <div class="bg-white shadow-md rounded-lg p-6 mb-4 ">
+            <div class="flex items-center justify-between">
+              <div>
+                <h2 class="text-lg font-semibold text-gray-800">Appointment</h2>
+                <p class="text-3xl font-bold text-gray-800">{{appointmentCount.count}}</p>
+              </div>
+              <div class="">
+                <span class="material-symbols-outlined" style="font-size: 50px; color: #cd7868;">
+                  list_alt
+                  </span>
+              </div>
+            </div>
+          </div>
+         <div class="bg-white shadow-md rounded-lg p-6  mb-4">
+            <div class="flex items-center justify-between">
+              <div>
+                <h2 class="text-lg font-semibold text-gray-800">Patient</h2>
+                <p class="text-3xl font-bold text-gray-800">{{users.count}}</p>
+              </div>
+              <div class="text-green-500">
+               <span class="material-symbols-outlined text-[#cd7868]" style="font-size: 50px; color: #cd7868;">
+                  groups
+                  </span>
+              </div>
+            </div>
+          </div>
+         <div class="bg-white shadow-md rounded-lg p-6 gap-10  mb-4">
+            <div class="flex items-center justify-between">
+              <div>
+                <h2 class="text-lg font-semibold text-gray-800">Reports</h2>
+                <p class="text-3xl font-bold text-gray-800">{{patitenReport.count}}</p>
+              </div>
+              <div class="text-green-500">
+               <span class="material-symbols-outlined  text-[#cd7868]"  style="font-size: 50px; color: #cd7868;">
+                receipt_long
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="bg-white shadow-md rounded-lg p-6 gap-10  mb-4">
+            <div class="flex items-center justify-between">
+              <div>
+                <h2 class="text-lg font-semibold text-gray-800">Doctors</h2>
+                <p class="text-3xl font-bold text-gray-800">{{doctors.count}}</p>
+              </div>
+              <div class="text-green-500">
+                <span class="material-symbols-outlined" style="font-size: 50px; color: #cd7868;">
+                stethoscope_check
+                </span>
+              </div>
+            </div>
+          </div>
+       </div>
+          </div> 
 
-    {%endblock%}
+<div class="mb-5">
+  <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+    <table class="w-full text-sm text-left rtl:text-right text-gray-500 light:text-gray-400">
+        <caption class="p-5 text-lg font-semibold text-left rtl:text-right text-gray-900 bg-white light:text-white light:bg-gray-800">
+            Patient Appointment
+            <p class="mt-1 text-sm font-normal text-gray-500 light:text-gray-400">List of all patient</p>
+        </caption>
+        <thead class="text-xs text-gray-700 uppercase bg-gray-50 light:bg-gray-700 light:text-gray-400">
+            <tr>
+                <th scope="col" class="px-6 py-3">
+                    Patient name
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Clinic
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Doctor
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Date
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+          {% for appointment in appointments%}
+            <tr class="bg-white border-b light:bg-gray-800 light:border-gray-700">
+                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap light:text-white">
+                    {{appointment.user.first_name}} {{appointment.user.last_name}}
+                </th>
+                <td class="px-6 py-4">
+                    {{appointment.clinic}}
+                </td>
+                <td class="px-6 py-4">
+                    {% for doctor in appointment.clinic.doctors_id.all %}
+                        {{ doctor.name }}{% if not forloop.last %}, {% endif %}
+                    {% endfor %}
+                </td>
+                <td class="px-6 py-4">
+                    {{appointment.date}}
+                </td>
+            </tr>
+            {%endfor%}
+        </tbody>
+    </table>
+    <nav class="flex flex-col md:flex-row justify-between items-start md:items-center space-y-3 md:space-y-0 p-4" aria-label="Table navigation">
+    <span class="text-sm font-normal text-gray-500 light:text-gray-400">
+        Showing
+        <span class="font-semibold text-gray-900 light:text-white">
+            {{ appointments.start_index }}-{{ appointments.end_index }}
+        </span>
+        of
+        <span class="font-semibold text-gray-900 light:text-white">{{ appointments.paginator.count }}</span>
+    </span>
+    
+    <ul class="inline-flex items-stretch -space-x-px">
+        {% if appointments.has_previous %}
+            <li>
+                <a href="?page={{ appointments.previous_page_number }}" class="flex items-center justify-center h-full py-1.5 px-3 ml-0 text-gray-500 bg-white rounded-l-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 light:bg-gray-800 light:border-gray-700 light:text-gray-400 light:hover:bg-gray-700 light:hover:text-white">
+                    <span class="sr-only">Previous</span>
+                    <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" />
+                    </svg>
+                </a>
+            </li>
+        {% endif %}
+        
+        {% for num in appointments.paginator.page_range %}
+            {% if appointments.number == num %}
+                <li>
+                    <a href="?page={{ num }}" class="flex items-center justify-center text-sm z-10 py-2 px-3 leading-tight text-primary-600 bg-primary-50 border border-primary-300 hover:bg-primary-100 hover:text-primary-700 light:border-gray-700 light:bg-gray-700 light:text-white">{{ num }}</a>
+                </li>
+            {% else %}
+                <li>
+                    <a href="?page={{ num }}" class="flex items-center justify-center text-sm py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 light:bg-gray-800 light:border-gray-700 light:text-gray-400 light:hover:bg-gray-700 light:hover:text-white">{{ num }}</a>
+                </li>
+            {% endif %}
+        {% endfor %}
+
+        {% if appointments.has_next %}
+            <li>
+                <a href="?page={{ appointments.next_page_number }}" class="flex items-center justify-center h-full py-1.5 px-3 leading-tight text-gray-500 bg-white rounded-r-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 light:bg-gray-800 light:border-gray-700 light:text-gray-400 light:hover:bg-gray-700 light:hover:text-white">
+                    <span class="sr-only">Next</span>
+                    <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+                    </svg>
+                </a>
+            </li>
+        {% endif %}
+    </ul>
+</nav>
+</div>
+</div>
+
+<div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+    <table class="w-full text-sm text-left rtl:text-right text-gray-500 light:text-gray-400">
+        <caption class="p-5 text-lg font-semibold text-left rtl:text-right text-gray-900 bg-white light:text-white light:bg-gray-800">
+            All Registered Patient
+            <p class="mt-1 text-sm font-normal text-gray-500 light:text-gray-400">List of all patient</p>
+        </caption>
+        <thead class="text-xs text-gray-700 uppercase bg-gray-50 light:bg-gray-700 light:text-gray-400">
+            <tr>
+                <th scope="col" class="px-6 py-3">
+                    Patient name
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Phone
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Email
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Age
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+          {% for profile in profile%}
+            <tr class="bg-white border-b light:bg-gray-800 light:border-gray-700">
+                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap light:text-white">
+                    {{profile.first_name}} {{profile.last_name}}
+                </th>
+                <td class="px-6 py-4">
+                    {{profile.phone}}
+                </td>
+                <td class="px-6 py-4">
+                  {{profile.user.email}}
+                </td>
+                <td class="px-6 py-4">
+                    {{profile.age}}
+                </td>
+            </tr>
+            {%endfor%}
+        </tbody>
+    </table>
+    <nav class="flex flex-col md:flex-row justify-between items-start md:items-center space-y-3 md:space-y-0 p-4" aria-label="Table navigation">
+    <span class="text-sm font-normal text-gray-500 light:text-gray-400">
+        Showing
+        <span class="font-semibold text-gray-900 light:text-white">
+            {{ profile.start_index }}-{{ profile.end_index }}
+        </span>
+        of
+        <span class="font-semibold text-gray-900 light:text-white">{{ profile.paginator.count }}</span>
+    </span>
+    
+    <ul class="inline-flex items-stretch -space-x-px">
+        {% if profile.has_previous %}
+            <li>
+                <a href="?page={{ profile.previous_page_number }}" class="flex items-center justify-center h-full py-1.5 px-3 ml-0 text-gray-500 bg-white rounded-l-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 light:bg-gray-800 light:border-gray-700 light:text-gray-400 light:hover:bg-gray-700 light:hover:text-white">
+                    <span class="sr-only">Previous</span>
+                    <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" />
+                    </svg>
+                </a>
+            </li>
+        {% endif %}
+        
+        {% for num in profile.paginator.page_range %}
+            {% if profile.number == num %}
+                <li>
+                    <a href="?page={{ num }}" class="flex items-center justify-center text-sm z-10 py-2 px-3 leading-tight text-primary-600 bg-primary-50 border border-primary-300 hover:bg-primary-100 hover:text-primary-700 light:border-gray-700 light:bg-gray-700 light:text-white">{{ num }}</a>
+                </li>
+            {% else %}
+                <li>
+                    <a href="?page={{ num }}" class="flex items-center justify-center text-sm py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 light:bg-gray-800 light:border-gray-700 light:text-gray-400 light:hover:bg-gray-700 light:hover:text-white">{{ num }}</a>
+                </li>
+            {% endif %}
+        {% endfor %}
+
+        {% if profile.has_next %}
+            <li>
+                <a href="?page={{ profile.next_page_number }}" class="flex items-center justify-center h-full py-1.5 px-3 leading-tight text-gray-500 bg-white rounded-r-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 light:bg-gray-800 light:border-gray-700 light:text-gray-400 light:hover:bg-gray-700 light:hover:text-white">
+                    <span class="sr-only">Next</span>
+                    <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+                    </svg>
+                </a>
+            </li>
+        {% endif %}
+    </ul>
+</nav>
+</div>
+{%endblock%}
