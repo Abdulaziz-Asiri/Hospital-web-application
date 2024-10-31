@@ -65,7 +65,9 @@
                         <tr class="border-b light:border-gray-700">
                             <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap light:text-white">{{appointment.user.first_name}} {{appointment.user.last_name}}</th>
                             <td class="px-4 py-3">{{appointment.clinic}}</td>
-                            <td class="px-4 py-3">{{appointment.doctor}}</td>
+                            <td class="px-4 py-3">{% for doctor in appointment.clinic.doctors_id.all %}
+                                                        {{ doctor.name }}{% if not forloop.last %}, {% endif %}
+                                                    {% endfor %}</td>
                             <td class="px-4 py-3">{{appointment.date}}</td>
                             <td class="px-4 py-3">{{appointment.time_slot}}</td>
                             <td class="px-4 py-3">{{appointment.created_at}} </td>
