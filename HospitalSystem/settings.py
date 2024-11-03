@@ -31,7 +31,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ["*"]
 
@@ -97,24 +97,24 @@ WSGI_APPLICATION = 'HospitalSystem.wsgi.application'
 # DATABASES = {
 #         "default":dj_database_url.config(default=DATABASE_URL,conn_max_age=1800),
 # }
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'hospital_db',# write the name of the DB you created
-        'USER': 'postgres', 
-        'PASSWORD': '',
-        'HOST': 'localhost'
-
-    }
-}
-
 # DATABASES = {
-#     'default': dj_database_url.config(
-#         # Replace this value with your local database's connection string.
-#         default='postgresql://hospital_website_user:5Eq7Tiijtba7U9d9ElVQwdmB1q4HGbJm@dpg-csj2f6m8ii6s73cu2pkg-a.frankfurt-postgres.render.com/hospital_website',
-#         conn_max_age=600
-#     )
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'hospital_db',# write the name of the DB you created
+#         'USER': 'postgres', 
+#         'PASSWORD': '',
+#         'HOST': 'localhost'
+
+#     }
 # }
+
+DATABASES = {
+    'default': dj_database_url.config(
+        # Replace this value with your local database's connection string.
+        default='postgresql://hospital_website_user:5Eq7Tiijtba7U9d9ElVQwdmB1q4HGbJm@dpg-csj2f6m8ii6s73cu2pkg-a.frankfurt-postgres.render.com/hospital_website',
+        conn_max_age=600
+    )
+}
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
@@ -151,15 +151,15 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
-# if not DEBUG:
-#     # Tell Django to copy static assets into a path called `staticfiles` (this is specific to Render)
-#     STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-#     # Enable the WhiteNoise storage backend, which compresses static files to reduce disk use
-#     # and renames the files with unique names for each version to support long-term caching
-#     STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+if not DEBUG:
+    # Tell Django to copy static assets into a path called `staticfiles` (this is specific to Render)
+    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+    # Enable the WhiteNoise storage backend, which compresses static files to reduce disk use
+    # and renames the files with unique names for each version to support long-term caching
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
+# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+# STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 
 
 # Default primary key field type
@@ -169,9 +169,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Cloudinary - Django Intgeration
 cloudinary.config(
-    cloud_name= 'dp5hwcef0',
-    api_key ='888814294251335',
-    api_secret = 'qftd0YYlQt0Fle-7De2eFkT7klw',
+    cloud_name= os.environ.get("CLOUD_NAME"),
+    api_key =os.environ.get("API_KEY"),
+    api_secret = os.environ.get("API_SECRET"),
 )
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
