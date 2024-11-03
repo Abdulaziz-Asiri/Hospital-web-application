@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from cloudinary.models import CloudinaryField
 
 class Doctor(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -8,7 +9,7 @@ class Doctor(models.Model):
     about = models.TextField(blank=True)
     email = models.EmailField(max_length=100,blank=True)
     phone = models.CharField(max_length=100,blank=True )
-    image = models.ImageField(upload_to="images/avatars/", default="images/defaultAvatar.png")
+    image = CloudinaryField("image", default="images/defaultAvatar.png")
 
     def __str__(self) -> str:
         return self.name
