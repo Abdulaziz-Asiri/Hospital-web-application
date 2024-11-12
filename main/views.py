@@ -25,10 +25,13 @@ def details_clinics(request: HttpRequest, clinic_id):
     return render(request, "clinic_details.html", {"clinic":clinic , })
 
 @login_required(login_url="account:log_in")
-def make_appointment(request:HttpRequest, clinic_id):  
+def make_appointment(request:HttpRequest, clinic_id):
+    try:
+        profile = Profile.objects.get(user=request.user)
+    except Profile.DoesNotExist:
+        messages.warning(request, "You need to complete your profile to make an appointment.")
+        return redirect("account:create_profile_view")
     clinic = Clinic.objects.get(id=clinic_id)
-    user = User.objects.get(id=request.user.id)
-    profile = Profile.objects.get(user=user)
     doctor_ids = clinic.doctors_id.values_list('id', flat=True)
 
     context ={
@@ -38,7 +41,6 @@ def make_appointment(request:HttpRequest, clinic_id):
     if not request.user.is_authenticated:
                 messages.error(request,"Only registered users can access")
                 return redirect("account:log_in")
-    
     if request.method == "POST":
         try:
             date = datetime.strptime(request.POST['date'], '%Y-%m-%d').date()
@@ -67,7 +69,7 @@ def make_appointment(request:HttpRequest, clinic_id):
             # email_message.send()
             # messages.success(request, "Appointment has been Added Successfully")
 
-            return redirect("appointment:my_appointment_view", user) 
+            return redirect("appointment:my_appointment_view", request.user) 
         except Exception as e:
             messages.error(request, f"An unexpected error occurred: {str(e)}")
 

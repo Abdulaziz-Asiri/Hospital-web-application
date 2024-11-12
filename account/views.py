@@ -99,8 +99,8 @@ def profile_view(request:HttpRequest, user_name):
     return render(request, "profile.html", {'profile': profile})
 
 @login_required(login_url="account:log_in")
-def create_profile_view(request:HttpRequest, user_name):
-    user = get_object_or_404(User, username=user_name)
+def create_profile_view(request:HttpRequest):
+    user = get_object_or_404(User, username=request.user)
 
     if request.method == "POST":
         try:
@@ -117,7 +117,7 @@ def create_profile_view(request:HttpRequest, user_name):
                 new_profile.avatar = request.FILES["avatar"]
             new_profile.save()
             messages.success(request, "Profile Created Successfully")
-            return redirect('account:profile_view', user_name=user_name)
+            return redirect('account:profile_view', user_name=request.user)
         except IntegrityError:
             messages.error(request, "An error occurred during Creating profile.", "alert-danger")
         except Exception as e:

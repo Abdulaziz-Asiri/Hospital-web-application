@@ -6,7 +6,7 @@
 {% if request.user.is_authenticated %}
 <section class="py-24 relative">
 <form
-action="{% url 'account:create_profile_view' user.username %}"
+action="{% url 'account:create_profile_view'  %}"
 method="post"
 enctype="multipart/form-data"
 >
