@@ -10,7 +10,8 @@ class Profile(models.Model):
     hight = models.DecimalField(max_digits=5, decimal_places=2)
     wight = models.DecimalField(max_digits=5, decimal_places=2)
     phone = models.CharField(blank=True)
-    avatar = CloudinaryField("image", default="images/defaultAvatar.png")
+    avatar = models.ImageField(upload_to="images/avatars/", default="images/defaultAvatar.png")
+    # avatar = CloudinaryField("image", default="images/defaultAvatar.png")
 
 
     def __str__(self) -> str:
