@@ -119,11 +119,11 @@ def add_appointment_view(request: HttpRequest):
                 time_slot=time_slot,
             )
             new_appointment.save()
-            content_html = render_to_string("mail/confirmation.html",{"appointment":new_appointment}) 
-            send_to = new_appointment.user.user.email 
-            email_message = EmailMessage("Appointment Confirmation", content_html, settings.EMAIL_HOST_USER, [send_to])
-            email_message.content_subtype = "html"
-            email_message.send()
+            # content_html = render_to_string("mail/confirmation.html",{"appointment":new_appointment}) 
+            # send_to = new_appointment.user.user.email 
+            # email_message = EmailMessage("Appointment Confirmation", content_html, settings.EMAIL_HOST_USER, [send_to])
+            # email_message.content_subtype = "html"
+            # email_message.send()
             
             messages.success(request, "Appointment has been Added Successfully")
             return redirect("appointment:all_appointment_view") 

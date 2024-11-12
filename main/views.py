@@ -118,6 +118,33 @@ def dashboard_view(request:HttpRequest):
 
 @login_required(login_url="account:log_in")
 def doctor_dashboard_view(request:HttpRequest):
+    if request.user.is_staff:
+        doctor = Doctor.objects.get(user_id=request.user.id)
+        clinic = Clinic.objects.filter(doctors_id=doctor)
+        # Filter appointments based on clinics associated with the doctor
+        appointments = Appointment.objects.filter(clinic__in=clinic)
+        appointmentCount = Appointment.objects.filter(clinic__in=clinic)
+        users = Profile.objects.filter(user__is_staff=False, user__is_superuser=False)
 
-    return render(request, "doctorDash.html")
+        paginator = Paginator(appointments, 6)  # Show n items per page
+        page_number = request.GET.get('page')
+        
+        try:
+            page_obj = paginator.get_page(page_number)
+        except PageNotAnInteger:
+            # If page is not an integer, deliver the first page.
+            page_obj = paginator.get_page(1)
+
+        except EmptyPage:
+            # If page is out of range, deliver last page of results.
+            page_obj = paginator.get_page(paginator.num_pages)
+
+
+    context={
+        "appointments":page_obj,
+        "appointmentCount":appointmentCount,
+        "users":users,
+    }
+
+    return render(request, "doctorDash.html", context)
 

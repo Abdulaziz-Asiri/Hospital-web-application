@@ -11,7 +11,9 @@ from django.db import IntegrityError
 from .models import Profile
 
 def sign_up (request: HttpRequest):
-
+    if request.user.is_authenticated:
+        return redirect('main:home_view') 
+    
     if request.method == "POST":
 
         username = request.POST["username"]
@@ -37,12 +39,12 @@ def sign_up (request: HttpRequest):
             new_user.save()
             messages.success(request, "You have been Registered Successfully", "alert-success")
             #send confirmation email
-            content_html = render_to_string("mail/welcoming.html",{"userName":new_user}) #set email
-            send_to = new_user.email
-            email_message = EmailMessage("welcoming", content_html, settings.EMAIL_HOST_USER, [send_to])
-            email_message.content_subtype = "html"
-            #email_message.connection = email_message.get_connection(True)
-            email_message.send()
+            # content_html = render_to_string("mail/welcoming.html",{"userName":new_user}) #set email
+            # send_to = new_user.email
+            # email_message = EmailMessage("welcoming", content_html, settings.EMAIL_HOST_USER, [send_to])
+            # email_message.content_subtype = "html"
+            # #email_message.connection = email_message.get_connection(True)
+            # email_message.send()
             return redirect("account:log_in")
         except IntegrityError:
             messages.error(request, "An error occurred during registration.", "alert-danger")
@@ -53,7 +55,9 @@ def sign_up (request: HttpRequest):
 
 
 def log_in(request: HttpRequest):
-        
+    if request.user.is_authenticated:
+        return redirect('main:home_view') 
+    
     if request.method == "POST":
    #checking user credentials
         user = authenticate(request, username=request.POST["username"], password=request.POST["password"])
